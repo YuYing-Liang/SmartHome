@@ -1,6 +1,3 @@
-import Filters.HighPassFilter;
-import Filters.LowPassFilter;
-
 public class Main {
 
 	public static void main(String[] args) {
@@ -10,22 +7,26 @@ public class Main {
 		final float MIN_ACCEL = 0;
 		
 		
-		//High Pass and Low Pass Filter
-		HighPassFilter highPassFilter = new HighPassFilter(MAX_ACCEL);
-		LowPassFilter lowPassFilter = new LowPassFilter(MIN_ACCEL);
+		//Filter
 		
 		float[][] accelVals = new float[NUM_ACCELS][NUM_COMPONENTS]; 
 		
 		for(int i = 0; i < NUM_ACCELS; i++){
 			for(int j = 0; j < NUM_COMPONENTS; j++){
-				float accel_value = accelVals[i][j];
-				if(accel_value > MIN_ACCEL){
-					accelVals[i][j] = highPassFilter.filter(accel_value);
-				}else{
-					accelVals[i][j] = lowPassFilter.filter(accel_value);
+				
+				if(accelVals[i][j] > MAX_ACCEL){
+					accelVals[i][j] = MAX_ACCEL;
+				}
+				
+				if(accelVals[i][j] < MIN_ACCEL){
+					accelVals[i][j] = MIN_ACCEL;
 				}
 			}
 		}
+		
+		
+		
+		
 		//TODO: Swipe: only x-direction acceleration
 		
 	}
